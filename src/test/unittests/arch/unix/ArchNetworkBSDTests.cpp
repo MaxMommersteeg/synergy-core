@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WINAPI_MSWINDOWS
-
+#if !GTEST_OS_WINDOWS
 #include <array>
 #include "lib/arch/unix/ArchNetworkBSD.h"
 #include "lib/arch/XArch.h"
@@ -40,4 +39,4 @@ TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
     }
 }
 
-#endif // #ifndef WINAPI_MSWINDOWS
+#endif // #if !GTEST_OS_WINDOWS
