@@ -16,6 +16,7 @@
  */
 
 #include "lib/arch/unix/ArchNetworkBSD.h"
+#include "lib/arch/XArch.h"
 #include "test/global/gtest.h"
 
 TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
@@ -30,7 +31,7 @@ TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
     catch(XArchNetworkAccess const &err)
     {
     }
-    catch() {
-        FAIL() << "Expected to throw XArchNetworkAccess"
+    catch(...) {
+        FAIL() << "Expected to throw XArchNetworkAccess";
     }
 }

@@ -131,5 +131,5 @@ private:
     void                throwNameError(int);
 
 private:
-    ArchMutex            m_mutex;
+    ArchMutex            m_mutex {};
 };

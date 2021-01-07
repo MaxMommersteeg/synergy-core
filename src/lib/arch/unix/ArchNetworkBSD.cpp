@@ -83,7 +83,7 @@ ArchNetworkBSD::ArchNetworkBSD()
 
 ArchNetworkBSD::~ArchNetworkBSD()
 {
-    ARCH->closeMutex(m_mutex);
+    if (m_mutex) ARCH->closeMutex(m_mutex);
 }
 
 void
