@@ -15,25 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <array>
-#include "lib/arch/unix/ArchNetworkBSD.h"
-#include "lib/arch/XArch.h"
+#include "lib/server/Config.h"
 #include "test/global/gtest.h"
 
-TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
+TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_map_size)
 {
-    ArchNetworkBSD networkBSD;
-    ArchNetworkBSD::s_connectors.poll_impl = [](struct pollfd *, nfds_t, int){ errno = EACCES; return -1; };
-    try {
-        std::array<IArchNetwork::PollEntry,2>  pe {{nullptr,0,0}};
-        networkBSD.pollSocket(pe.data(), pe.size(), 1);
-        FAIL() << "Expected to throw";
-    }
-    catch(XArchNetworkAccess const &err)
-    {
-        EXPECT_STREQ(err.what(), "Permission denied");
-    }
-    catch(std::runtime_error const &baseerr) {
-        FAIL() << "Expected to throw XArchNetworkAccess but got " << baseerr.what();
-    }
+    Config a(nullptr), b(nullptr);
+    a.addScreen("screenA");
+    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(b == a);
+}
+
+TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_cell_names)
+{
+    Config a(nullptr), b(nullptr);
+    a.addScreen("screenA");
+    b.addScreen("screenB");
+    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(b == a);
+}
+
+TEST(ServerConfigTests, serverconfig_will_deem_equal_configs_with_same_cell_names)
+{
+    Config a(nullptr), b(nullptr);
+    a.addScreen("screenA");
+    b.addScreen("screenA");
+    EXPECT_TRUE(a == b);
+    EXPECT_TRUE(b == a);
 }

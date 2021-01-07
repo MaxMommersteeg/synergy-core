@@ -58,13 +58,14 @@ IArchString::convStringWCToMB(char* dst,
     if (dst == NULL) {
         char dummy[MB_LEN_MAX];
         const wchar_t* scan = src;
-        for (; n > 0; ++scan, --n) {
+        for (; n > 0; --n) {
             ptrdiff_t mblen = wctomb(dummy, *scan);
             if (mblen == -1) {
                 *errors = true;
                 mblen   = 1;
             }
             len += mblen;
+            ++scan;
         }
         ptrdiff_t mblen = wctomb(dummy, L'\0');
         if (mblen != -1) {
@@ -74,7 +75,7 @@ IArchString::convStringWCToMB(char* dst,
     else {
         char* dst0 = dst;
         const wchar_t* scan = src;
-        for (; n > 0; ++scan, --n) {
+        for (; n > 0; --n) {
             ptrdiff_t mblen = wctomb(dst, *scan);
             if (mblen == -1) {
                 *errors = true;
@@ -83,6 +84,7 @@ IArchString::convStringWCToMB(char* dst,
             else {
                 dst    += mblen;
             }
+            ++scan;
         }
         ptrdiff_t mblen = wctomb(dst, L'\0');
         if (mblen != -1) {
@@ -116,7 +118,7 @@ IArchString::convStringMBToWC(wchar_t* dst,
 
     if (dst == NULL) {
         const char* scan = src;
-        for (; n > 0; ) {
+        while (n > 0) {
             ptrdiff_t mblen = mbtowc(&dummy, scan, n);
             switch (mblen) {
             case -2:
