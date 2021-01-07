@@ -16,13 +16,22 @@
  */
 
 #include <array>
+#include "arch/IArchString.h"
 #include "base/Unicode.h"
 #include "test/global/gtest.h"
 
-TEST(UnicodeTests, doUCS2ToUTF8_will_convert_simple_string)
+TEST(UnicodeTests, doUTF32ToUTF8_will_convert_simple_string)
 {
     bool errors;
     auto result = Unicode::UTF32ToUTF8(String("h\0\0\0e\0\0\0l\0\0\0l\0\0\0o\0\0\0", 20), &errors);
     EXPECT_FALSE(errors);
     EXPECT_STREQ(result.c_str(), "hello");
+}
+
+TEST(UnicodeTests, doUCS2ToUTF8_will_convert_simple_string)
+{
+    bool errors;
+    auto result = Unicode::textToUTF8("hello", &errors, IArchString::kUCS2);
+    EXPECT_FALSE(errors);
+    EXPECT_TRUE(result == String("h\0e\0l", 5)); // mixed-platform expected result
 }
