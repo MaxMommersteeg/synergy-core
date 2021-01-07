@@ -48,6 +48,7 @@ IArchString::convStringWCToMB(char* dst,
     if (errors == NULL) {
         errors = &dummyErrors;
     }
+    *errors = false;
 
     if (s_mutex == NULL) {
         s_mutex = ARCH->newMutex();
@@ -109,6 +110,7 @@ IArchString::convStringMBToWC(wchar_t* dst,
     if (errors == NULL) {
         errors = &dummyErrors;
     }
+    *errors = false;
 
     if (s_mutex == NULL) {
         s_mutex = ARCH->newMutex();
