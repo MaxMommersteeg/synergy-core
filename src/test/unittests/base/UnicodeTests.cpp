@@ -15,29 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _WINDOWS
-
 #include <array>
-#include "lib/arch/unix/ArchNetworkBSD.h"
-#include "lib/arch/XArch.h"
+#include "base/Unicode.h"
 #include "test/global/gtest.h"
 
-TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
+TEST(UnicodeTests, doUCS2ToUTF8_will_convert_simple_string)
 {
-    ArchNetworkBSD networkBSD;
-    ArchNetworkBSD::s_connectors.poll_impl = [](struct pollfd *, nfds_t, int){ errno = EACCES; return -1; };
-    try {
-        std::array<IArchNetwork::PollEntry,2>  pe {{nullptr,0,0}};
-        networkBSD.pollSocket(pe.data(), pe.size(), 1);
-        FAIL() << "Expected to throw";
-    }
-    catch(XArchNetworkAccess const &err)
-    {
-        EXPECT_STREQ(err.what(), "Permission denied");
-    }
-    catch(std::runtime_error const &baseerr) {
-        FAIL() << "Expected to throw XArchNetworkAccess but got " << baseerr.what();
-    }
+    bool errors;
+    auto result = Unicode::UTF32ToUTF8(String("h\0\0\0e\0\0\0l\0\0\0l\0\0\0o\0\0\0", 20), &errors);
+    EXPECT_FALSE(errors);
+    EXPECT_STREQ(result.c_str(), "hello");
 }
-
-#endif // undef WINDOWS
