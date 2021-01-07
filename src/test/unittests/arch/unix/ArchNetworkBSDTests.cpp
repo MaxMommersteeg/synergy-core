@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef WINDOWS
+
 #include <array>
 #include "lib/arch/unix/ArchNetworkBSD.h"
 #include "lib/arch/XArch.h"
@@ -37,3 +39,5 @@ TEST(ArchNetworkBSDTests, pollSocket_errs_EACCES)
         FAIL() << "Expected to throw XArchNetworkAccess but got " << baseerr.what();
     }
 }
+
+#endif // undef WINDOWS

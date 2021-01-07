@@ -20,7 +20,8 @@
 
 TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_map_size)
 {
-    Config a(nullptr), b(nullptr);
+    Config a(nullptr);
+    Config b(nullptr);
     a.addScreen("screenA");
     EXPECT_FALSE(a == b);
     EXPECT_FALSE(b == a);
@@ -28,7 +29,8 @@ TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_ma
 
 TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_cell_names)
 {
-    Config a(nullptr), b(nullptr);
+    Config a(nullptr);
+    Config b(nullptr);
     a.addScreen("screenA");
     b.addScreen("screenB");
     EXPECT_FALSE(a == b);
@@ -37,7 +39,8 @@ TEST(ServerConfigTests, serverconfig_will_deem_inequal_configs_with_different_ce
 
 TEST(ServerConfigTests, serverconfig_will_deem_equal_configs_with_same_cell_names)
 {
-    Config a(nullptr), b(nullptr);
+    Config a(nullptr);
+    Config b(nullptr);
     a.addScreen("screenA");
     b.addScreen("screenA");
     EXPECT_TRUE(a == b);

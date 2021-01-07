@@ -186,9 +186,9 @@ IArchString::convStringMBToWC(wchar_t* dst,
                 n      -= static_cast<int>(mblen);
                 break;
             }
+            ++dst;
         }
         len = dst - dst0;
-        ++dst;
     }
     ARCH->unlockMutex(s_mutex);
 
