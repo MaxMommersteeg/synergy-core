@@ -30,7 +30,7 @@ TEST(IArchStringTests, convStringWCToMB_will_work_do_simple_conversions)
     SampleIArchString as;
     char buff[20];
     bool errors;
-    auto converted = as.convStringWCToMB(buff, L"Hello", 5, &errors);
+    auto converted = as.convStringWCToMB(buff, L"Hello", 6, &errors);
     EXPECT_STREQ(buff, "Hello");
     EXPECT_EQ(converted, 5);
     EXPECT_EQ(errors, false);
@@ -41,7 +41,7 @@ TEST(IArchStringTests, convStringMBToWC_will_work_do_simple_conversions)
     SampleIArchString as;
     wchar_t buff[20];
     bool errors;
-    auto converted = as.convStringMBToWC(buff, "Hello", 5, &errors);
+    auto converted = as.convStringMBToWC(buff, "Hello", 6, &errors);
     EXPECT_STREQ(buff, L"Hello");
     EXPECT_EQ(converted, 5);
     EXPECT_EQ(errors, false);
