@@ -46,3 +46,26 @@ TEST(ServerConfigTests, serverconfig_will_deem_equal_configs_with_same_cell_name
     EXPECT_TRUE(a == b);
     EXPECT_TRUE(b == a);
 }
+
+TEST(ServerConfigTests, serverconfig_will_deem_different_configs_with_same_cell_names_different_options)
+{
+    Config a(nullptr);
+    Config b(nullptr);
+    a.addScreen("screenA");
+    b.addScreen("screenA");
+    a.addOption("screenA", kOptionClipboardSharing, 0);
+    b.addOption("screenA", kOptionClipboardSharing, 1);
+    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(b == a);
+}
+
+TEST(ServerConfigTests, serverconfig_will_deem_different_configs_with_same_cell_names_different_aliases)
+{
+    Config a(nullptr);
+    Config b(nullptr);
+    a.addScreen("screenA");
+    b.addScreen("screenA");
+    b.addAlias("screenA", "aliasA");
+    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(b == a);
+}
