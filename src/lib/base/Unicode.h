@@ -112,7 +112,7 @@ public:
     Convert from the current locale encoding to UTF-8.  If errors is not
     NULL then *errors is set to true iff any character could not be decoded.
     */
-    static String        textToUTF8(const String&, bool* errors = NULL, IArchString::EWideCharEncoding encoding = IArchString::kPlatformDetermined);
+    static String        textToUTF8(const String&, bool* errors = nullptr, IArchString::EWideCharEncoding encoding = IArchString::kPlatformDetermined);
 
     //@}
 
